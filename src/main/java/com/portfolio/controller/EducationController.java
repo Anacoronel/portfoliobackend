@@ -57,21 +57,17 @@ public class EducationController {
 
     @RequestMapping("/create")
     public ResponseEntity<?> create(@RequestBody EducationDto educationDto, Principal principal) {
-        if(StringUtils.isBlank(educationDto.getSchool()))
-            return new ResponseEntity(new Mensaje("school can not be empty"), HttpStatus.BAD_REQUEST);
-        if(StringUtils.isBlank(educationDto.getTitle()))
-            return new ResponseEntity(new Mensaje("title can not be empty"), HttpStatus.BAD_REQUEST);
-        if(StringUtils.isBlank(educationDto.getLocation()))
-            return new ResponseEntity(new Mensaje("location can not be empty"), HttpStatus.BAD_REQUEST);
+        if(StringUtils.isBlank(educationDto.getInstitution()))
+            return new ResponseEntity(new Mensaje("institution can not be empty"), HttpStatus.BAD_REQUEST);
+
                 
         Education education = new Education(
-                educationDto.getSchool(),
+                educationDto.getInstitution(),
                 educationDto.getTitle(), 
-                educationDto.getImg(), 
-                educationDto.getCareer(), 
-                educationDto.getStartTime(), 
-                educationDto.getEndTime(), 
-                educationDto.getLocation()
+                educationDto.getLink(),
+                educationDto.getDate()
+
+
         );
         
         User user = userService.getByUsername(principal.getName()).get();
@@ -88,22 +84,17 @@ public class EducationController {
             return new ResponseEntity(new Mensaje("Not allowed to do that"), HttpStatus.FORBIDDEN);
         if (!educationService.existsById(id))
             return new ResponseEntity(new Mensaje("Education not found"), HttpStatus.NOT_FOUND);
-        if(StringUtils.isBlank(educationDto.getSchool()))
-            return new ResponseEntity(new Mensaje("school can not be empty"), HttpStatus.BAD_REQUEST);
-        if(StringUtils.isBlank(educationDto.getTitle()))
-            return new ResponseEntity(new Mensaje("title can not be empty"), HttpStatus.BAD_REQUEST);
-        if(StringUtils.isBlank(educationDto.getLocation()))
-            return new ResponseEntity(new Mensaje("location can not be empty"), HttpStatus.BAD_REQUEST);
+        if(StringUtils.isBlank(educationDto.getInstitution()))
+            return new ResponseEntity(new Mensaje("institution can not be empty"), HttpStatus.BAD_REQUEST);
+
+
         
         Education education = educationService.get(id).get();
-        education.setSchool(educationDto.getSchool());
+        education.setInstitution(educationDto.getInstitution());
         education.setTitle(educationDto.getTitle());
-        education.setImg(educationDto.getImg());
-        education.setCareer(educationDto.getCareer());
-        education.setStartTime(educationDto.getStartTime());
-        education.setEndTime(educationDto.getEndTime());
-        education.setLocation(educationDto.getLocation());
-        
+        education.setLink(educationDto.getLink());
+        education.setDate(educationDto.getDate());
+
         educationService.save(education);
         return new ResponseEntity(new Mensaje("Education updated"), HttpStatus.OK);
     }

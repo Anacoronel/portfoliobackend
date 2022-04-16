@@ -21,26 +21,22 @@ public class Education {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String school;
+    private String institution;
     private String title;
-    private String img;
-    private String career;
-    private String startTime;
-    private String endTime;
-    private String location;
+    private String link;
+    private String date;
+
     
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     @JsonIgnore
     private User user;
 
-    public Education(String school, String title, String img, String career, String startTime, String endTime, String location) {
-        this.school = school;
+    public Education(String institution, String title, String link, String date) {
+        this.institution = institution;
         this.title = title;
-        this.img = img;
-        this.career = career;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.location = location;
+        this.link = link;
+        this.date = date;
+
     }
 }

@@ -61,19 +61,14 @@ public class ExperienceController {
             return new ResponseEntity(new Mensaje("position can not be empty"), HttpStatus.BAD_REQUEST);
         if(StringUtils.isBlank(experienceDto.getCompany()))
             return new ResponseEntity(new Mensaje("company can not be empty"), HttpStatus.BAD_REQUEST);
-        if(StringUtils.isBlank(experienceDto.getMode()))
-            return new ResponseEntity(new Mensaje("mode can not be empty"), HttpStatus.BAD_REQUEST);
-        
+
         Experience experience = new Experience(
                 experienceDto.getPosition(), 
                 experienceDto.getCompany(), 
-                experienceDto.getImg(), 
-                experienceDto.getMode(), 
-                experienceDto.getStartTime(), 
-                experienceDto.getEndTime(), 
-                experienceDto.getTimeAtPosition(), 
-                experienceDto.getLocation());
-        
+                experienceDto.getLink(),
+                experienceDto.getStartTime(),
+                experienceDto.getEndTime());
+
         User user = userService.getByUsername(principal.getName()).get();
         experience.setUser(user);
         
@@ -92,19 +87,14 @@ public class ExperienceController {
             return new ResponseEntity(new Mensaje("position can not be empty"), HttpStatus.BAD_REQUEST);
         if(StringUtils.isBlank(experienceDto.getCompany()))
             return new ResponseEntity(new Mensaje("company can not be empty"), HttpStatus.BAD_REQUEST);
-        if(StringUtils.isBlank(experienceDto.getMode()))
-            return new ResponseEntity(new Mensaje("mode can not be empty"), HttpStatus.BAD_REQUEST);
-        
+
         Experience experience = experienceService.get(id).get();
         experience.setPosition(experienceDto.getPosition());
         experience.setCompany(experienceDto.getCompany());
-        experience.setImg(experienceDto.getImg());
-        experience.setMode(experienceDto.getMode());
+        experience.setLink(experienceDto.getLink());
         experience.setStartTime(experienceDto.getStartTime());
         experience.setEndTime(experienceDto.getEndTime());
-        experience.setTimeAtPosition(experienceDto.getTimeAtPosition());
-        experience.setLocation(experienceDto.getLocation());
-        
+
         experienceService.save(experience);
         return new ResponseEntity(new Mensaje("Experience updated"), HttpStatus.OK);
     }
