@@ -25,12 +25,11 @@ public class Persona {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String firstName;
-    private String lastName;
-    private String position;
-    private String location;
-    private String aboutMe;
-    private LocalDate birthday;
+    private String name;
+    private String description;
+    private String city;
+    private String country;
+
     private String backImg;
     private String profileImg;
     
@@ -40,13 +39,11 @@ public class Persona {
     @JsonIgnore
     private User user;
 
-    public Persona(String firstName,String lastName, String position, String location, String aboutMe, LocalDate birthday, String backImg, String profileImg) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.position = position;
-        this.location = location;
-        this.aboutMe = aboutMe;
-        this.birthday = birthday;
+    public Persona(String name,String description, String city, String country, String backImg, String profileImg) {
+        this.name = name;
+        this.description = description;
+        this.city = city;
+        this.country = country;
         this.backImg = backImg;
         this.profileImg = profileImg;
     }

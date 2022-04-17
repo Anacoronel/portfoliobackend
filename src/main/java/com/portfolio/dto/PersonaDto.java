@@ -7,12 +7,10 @@ import lombok.Setter;
 
 @Getter @Setter
 public class PersonaDto {
-    private String firstName;
-    private String lastName;
-    private String position;
-    private String location;
-    private String aboutMe;    
-    private LocalDate birthday;
+    private String name;
+    private String description;
+    private String city;
+    private String country;
     private String backImg;
     private String profileImg;
 }

@@ -46,16 +46,14 @@ public class PersonaController {
         
         if (personaService.existsByUserId(user.getId()))
             return new ResponseEntity(new Mensaje("You have already created your profile"), HttpStatus.FORBIDDEN);
-        if (StringUtils.isBlank(personaDto.getFirstName()) || StringUtils.isBlank(personaDto.getLastName()))
-            return new ResponseEntity(new Mensaje("Fields (firstName, lastName) should not be empty"), HttpStatus.BAD_REQUEST);
+        if (StringUtils.isBlank(personaDto.getName()))
+            return new ResponseEntity(new Mensaje("Field Name should not be empty"), HttpStatus.BAD_REQUEST);
         
         Persona persona = new Persona(
-                personaDto.getFirstName(),
-                personaDto.getLastName(),
-                personaDto.getPosition(), 
-                personaDto.getLocation(), 
-                personaDto.getAboutMe(), 
-                personaDto.getBirthday(), 
+                personaDto.getName(),
+                personaDto.getDescription(),
+                personaDto.getCity(),
+                personaDto.getCountry(),
                 personaDto.getBackImg(), 
                 personaDto.getProfileImg());
         
@@ -94,16 +92,14 @@ public class PersonaController {
         if (!personaService.get(id).get().getUser().getUsername()
                 .equals(principal.getName()))
             return new ResponseEntity(new Mensaje("Not allowed to do that"), HttpStatus.FORBIDDEN);        
-        if (StringUtils.isBlank(personaDto.getFirstName()) || StringUtils.isBlank(personaDto.getLastName()))
-            return new ResponseEntity(new Mensaje("Fields (firstName, lastName) should not be empty"), HttpStatus.BAD_REQUEST);
+        if (StringUtils.isBlank(personaDto.getName()))
+            return new ResponseEntity(new Mensaje("Field Name should not be empty"), HttpStatus.BAD_REQUEST);
         
         Persona persona = personaService.get(id).get();
-        persona.setFirstName(personaDto.getFirstName());
-        persona.setLastName(personaDto.getLastName());
-        persona.setPosition(personaDto.getPosition());
-        persona.setLocation(personaDto.getLocation());
-        persona.setAboutMe(personaDto.getAboutMe());
-        persona.setBirthday(personaDto.getBirthday());
+        persona.setName(personaDto.getName());
+        persona.setDescription(personaDto.getDescription());
+        persona.setCity(personaDto.getCity());
+        persona.setCountry(personaDto.getCountry());
         persona.setBackImg(personaDto.getBackImg());
         persona.setProfileImg(personaDto.getProfileImg());
         
